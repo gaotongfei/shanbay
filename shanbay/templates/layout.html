@@ -1,0 +1,43 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+{{ super() }}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block title %}扇贝{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-static-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand nav-text" href="/">扇贝</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a class="nav-text" href="/">首页</a></li>
+				<li><a class="nav-text" href="/">Words</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a class="nav-text" href="{{ url_for('account.login') }}"><span class="glyphicon glyphicon-user"></span>  注册</a></li>
+				<li><a class="nav-text" href="{{ url_for('account.signup') }}"><span class="glyphicon glyphicon-log-in"></span>  登录</a></li>
+        <li><a class="nav-text" href="{{ url_for('account.settings') }}"><span class="glyphicon glyphicon-cog"></span>  设置</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <h1>Hello {% block name %}{{ name }}{% endblock %}!</h1>
+  </div>
+</div>
+{% endblock %}

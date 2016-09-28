@@ -1,0 +1,8 @@
+.nav-text {
+  color: #563d7c !important;
+}
+
+.nav > li > a:hover {
+  color: #463265;
+  background-color: #F9F9F9 !important;
+}
