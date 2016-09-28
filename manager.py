@@ -2,8 +2,11 @@ import os
 from flask_script import Manager, Server, Shell
 from flask_migrate import Migrate, MigrateCommand
 from shanbay import create_app, db, models
+from shanbay.models import Word
 import coverage
 import unittest
+import codecs
+from pprint import pprint
 
 
 app = create_app('dev')
@@ -42,8 +45,31 @@ def cov():
 
 
 @manager.command
-def words():
-    pass
+def import_dict():
+    files = filter(lambda x: not x.startswith('.'), os.listdir('wordlist'))
+    if isinstance(files, filter):
+        files = list(files)
+    for f in files:
+        with open(os.path.join('wordlist', f), 'r') as words_file:
+            words = words_file.readlines()
+        words_list = [(i[0], i[1].strip()) for i in [str(word).split('\t') for word in words]]
+
+        for w in words_list:
+            word_en = w[0]
+            translation = w[1]
+            category = f.split('.')[0]
+
+            # 先查看word表中是否存在, 不可以重复导入词库
+            word = Word.query.filter_by(word_en=word_en).first()
+            if word:
+                print("word  {0}:{1}  is already in database. skipping...".format(word.word_en, word.translation))
+                continue
+
+            word = Word(word_en=word_en,
+                        translation=translation,
+                        category=category)
+            db.session.add(word)
+            db.session.commit()
 
 if __name__ == '__main__':
     manager.run()

@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False, index=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
     password_hash = db.Column(db.String(128))
+    # :new_user: is set to tell if this specific user chose their word list plan
     new_user = db.Column(db.Integer, default=1)
 
     @property
@@ -24,6 +25,13 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return "<User %r>" % self.username
+
+
+class Word(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    word_en = db.Column(db.String(100), nullable=False)
+    translation = db.Column(db.String(500))
+    category = db.Column(db.String(20))
 
 
 @login_manager.user_loader

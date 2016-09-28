@@ -135,7 +135,7 @@ enterprise	n. 企业,企划,进取心
 lease	n. 租约,租期,租 v. 出租,租出,租得
 questionnaire	n. 调查表
 symphony	n. 交响乐
-absent	adj. 缺席的,缺少的 vt. 使缺席
+absent	adj. 缺席的,缺少的 vt. 使缺席
 footpath	n. 人行小径
 equator	n. 赤道
 universally	adv. 普遍地

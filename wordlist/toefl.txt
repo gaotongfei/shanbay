@@ -133,7 +133,7 @@ choreograph	v. 设计舞蹈动作
 subtraction	n. 减法, 减去
 endurance	n. 忍耐, 忍耐力, 耐性
 inspect	vt. 调查, 检阅 vi. 调查
-inventory	n. 详细目录, 存货(清单) vt. 编制(详细目录)
+inventory	n. 详细目录, 存货(清单) vt. 编制(详细目录)
 amaze	v. 使吃惊
 pitch	n.场地； 最高点； 音高； 说教 vt.用沥青涂； 扔，投； 树起，搭起； 定位于 vi.抛，扔； [棒球]当投手； 搭帐篷； 向前跌或冲
 bush	n. 灌木(丛),荒野, 狐狸尾巴 vt. 用灌木保护或支撑, 加衬套于 vi. 成灌木形,丛生 adj. 长得低矮的，二流的
