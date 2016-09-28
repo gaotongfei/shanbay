@@ -5,8 +5,6 @@ from shanbay import create_app, db, models
 from shanbay.models import Word
 import coverage
 import unittest
-import codecs
-from pprint import pprint
 
 
 app = create_app('dev')
