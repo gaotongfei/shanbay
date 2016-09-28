@@ -3,6 +3,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import login_manager
 
+user_word = db.Table('user_word', db.Model.metadata,
+                     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                     db.Column('word_id', db.Integer, db.ForeignKey('word.id')))
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +15,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     # :new_user: is set to tell if this specific user chose their word list plan
     new_user = db.Column(db.Integer, default=1)
+    selected_words = db.relationship("Word", secondary=user_word)
 
     @property
     def password(self):
@@ -32,6 +37,7 @@ class Word(db.Model):
     word_en = db.Column(db.String(100), nullable=False)
     translation = db.Column(db.String(500))
     category = db.Column(db.String(20))
+
 
 
 @login_manager.user_loader

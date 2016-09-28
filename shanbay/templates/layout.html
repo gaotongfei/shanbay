@@ -25,19 +25,35 @@
 				<li><a class="nav-text" href="/">Words</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a class="nav-text" href="{{ url_for('account.login') }}"><span class="glyphicon glyphicon-user"></span>  注册</a></li>
-				<li><a class="nav-text" href="{{ url_for('account.signup') }}"><span class="glyphicon glyphicon-log-in"></span>  登录</a></li>
-        <li><a class="nav-text" href="{{ url_for('account.settings') }}"><span class="glyphicon glyphicon-cog"></span>  设置</a></li>
+        {% if not current_user.is_authenticated %}
+          <li><a class="nav-text" href="{{ url_for('account.signup') }}"><span class="glyphicon glyphicon-user"></span>  注册</a></li>
+          <li><a class="nav-text" href="{{ url_for('account.login') }}"><span class="glyphicon glyphicon-log-in"></span>  登录</a></li>
+        {% else %}
+          <li><a class="nav-text" href="{{ url_for('account.logout') }}"><span class="glyphicon glyphicon-cog"></span>  注销</a></li>
+          <li><a class="nav-text" href="{{ url_for('account.settings') }}"><span class="glyphicon glyphicon-cog"></span>  设置</a></li>
+        {% endif %}
 			</ul>
 		</div>
 	</div>
 </div>
 {% endblock %}
 
+
 {% block content %}
 <div class="container">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
   <div class="page-header">
-    <h1>Hello {% block name %}{{ name }}{% endblock %}!</h1>
+    <h1>Hi {% block name %}{{ name }}{% endblock %}!</h1>
   </div>
 </div>
 {% endblock %}

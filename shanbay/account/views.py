@@ -14,11 +14,9 @@ def signup():
         email = form.email.data
         password = form.password.data
 
-        user = User(
-            username=username,
-            email=email,
-            password=password
-        )
+        user = User(username=username,
+                    email=email,
+                    password=password)
 
         db.session.add(user)
         db.session.commit()
@@ -36,6 +34,13 @@ def login():
                 login_user(user, form.remember_me.data)
                 return redirect(url_for('main.index'))
     return render_template('account/login.html', form=form)
+
+
+@bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.index'))
 
 
 @bp.route('/settings')
