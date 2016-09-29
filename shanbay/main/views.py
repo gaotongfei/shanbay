@@ -1,4 +1,4 @@
-from flask import render_template, flash, Markup
+from flask import render_template, flash, Markup, redirect, url_for
 from . import bp
 from flask_login import current_user, login_required
 from ..models import User
@@ -22,6 +22,10 @@ def index():
 def review():
     if current_user.is_authenticated:
         user = User.query.filter_by(username=current_user.username).first()
-        print(user.selected_words)
-        print(user.words_per_day)
-    return render_template('main/review.html')
+        words_per_day = user.words_per_day
+        words = user.words.limit(words_per_day).offset(words_per_day).all()
+        print([word.id for word in words])
+        print(len(words))
+    else:
+        return redirect(url_for('account.login'))
+    return render_template('main/review.html', words=words)

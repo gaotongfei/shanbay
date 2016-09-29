@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from .forms import SignupForm, LoginForm, SettingsForm
 from . import bp
-from ..models import User
+from ..models import User, Word
 from .. import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -55,6 +55,8 @@ def settings():
         user.words_per_day = words_per_day
         user.category = category
         user.new_user = 0
+        # 添加目标单词到库中
+        user.words = Word.query.filter_by(category=category)
         db.session.add(user)
         db.session.commit()
         flash('新的一天从背蛋池开始')
