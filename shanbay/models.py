@@ -51,8 +51,10 @@ class Word(db.Model):
     translation = db.Column(db.String(500))
     category = db.Column(db.String(20))
 
-    def __init__(self, word):
+    def __init__(self, word, translation=None, category=None):
         self.word = word
+        self.translation = translation
+        self.category = category
 
 
 @login_manager.user_loader
