@@ -53,17 +53,18 @@ def import_dict():
         words_list = [(i[0], i[1].strip()) for i in [str(word).split('\t') for word in words]]
 
         for w in words_list:
-            word_en = w[0]
+            word = w[0]
             translation = w[1]
             category = f.split('.')[0]
 
             # 先查看word表中是否存在, 不可以重复导入词库
-            word = Word.query.filter_by(word_en=word_en).first()
-            if word:
-                print("word  {0}:{1}  is already in database. skipping...".format(word.word_en, word.translation))
+            existed_word = Word.query.filter_by(word=word).first()
+            if existed_word:
+                print("word  {0}:{1}  is already in database. skipping...".
+                      format(existed_word.word, existed_word.translation))
                 continue
 
-            word = Word(word_en=word_en,
+            word = Word(word=word,
                         translation=translation,
                         category=category)
             db.session.add(word)

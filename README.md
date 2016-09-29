@@ -9,7 +9,7 @@
 $ virtualenv -p python3 venv
 $ pip install -r requirements.txt 
 
-$ python manager.py db init
+$ python manager.py db init && python manager.py migrate && python manager.py upgrade
 $ python manager.py import_dict 
 
 $ python manager.py runserver

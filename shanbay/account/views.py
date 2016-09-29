@@ -1,5 +1,5 @@
-from flask import render_template, request, redirect, url_for
-from .forms import SignupForm, LoginForm
+from flask import render_template, request, redirect, url_for, flash
+from .forms import SignupForm, LoginForm, SettingsForm
 from . import bp
 from ..models import User
 from .. import db
@@ -43,6 +43,20 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-@bp.route('/settings')
+@bp.route('/settings', methods=['GET', 'POST'])
+@login_required
 def settings():
-    return 'settings'
+    form = SettingsForm()
+    if form.validate_on_submit():
+        words_per_day = form.words_per_day.data
+        category = form.category.data
+        user = User.query.filter_by(username=current_user.username).first()
+
+        user.words_per_day = words_per_day
+        user.category = category
+        user.new_user = 0
+        db.session.add(user)
+        db.session.commit()
+        flash('新的一天从背蛋池开始')
+        return redirect(url_for('main.index'))
+    return render_template('account/settings.html', form=form)
