@@ -1,12 +1,34 @@
+from flask import request, current_app, abort
 from . import bp
-from ..models import User
-from flask_login import current_user
+from ..models import User, Word
+from itsdangerous import JSONWebSignatureSerializer
+from .. import db
 
 
-@bp.route('/api/is_new')
+@bp.route('/api/known', methods=['POST', 'GET'])
 def index():
-    user = current_user.username
-    user = User.query.filter_by(username=user).first()
-    is_new_user = user.new_user
-    print(is_new_user)
-    return 'api test'
+    if request.method == 'POST':
+        s = JSONWebSignatureSerializer('token', salt=current_app.config['SECRET_KEY'])
+        data = request.form
+        if data:
+            token = data['token']
+            word_id = data['word_id']
+            username = s.loads(token)['username']
+            user = User.query.filter_by(username=username).first()
+            word = Word.query.filter_by(id=word_id).first()
+
+            print(word.word)
+            print(word.category)
+            print(word.translation)
+
+            # add current word to user known words
+            user.words_known.append(word)
+            # delete current word from reviewing task
+            user.words.remove(word)
+
+            db.session.add(user)
+            db.session.commit()
+    else:
+        abort(404)
+
+    return 'test'

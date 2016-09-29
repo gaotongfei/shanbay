@@ -8,9 +8,28 @@
 }
 
 .translation {
-    display: none;
 }
 
 .word-text {
     text-align: center;
+    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+    margin-right: 50px;
+}
+
+.options {
+    margin: 30px 0 0 250px;
+}
+
+.word {
+    margin-top: 80px;
+}
+
+.hidden {
+    display: none;
+}
+
+.detail {
+    margin-left: 150px;
+    margin-top: 50px;
+    width: 400px;
 }

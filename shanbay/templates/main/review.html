@@ -4,12 +4,41 @@
   <div class="container">
   <div class="col-md-2"></div>
   <div class="col-md-8">
+  <input id="token" value="{{ token }}" type="hidden">
   {% for word in words %}
-    <ul class="word" data-id="{{ word.id }}" index-id="{{ loop.index }}">
+    <ul id="indexId-{{ loop.index }}" class="word" data-id="{{ word.id }}">
       <div class="word-text">
         <h1>{{ word.word }}</h1>
       </div>
-      <li class="translation">{{ word.translation }}</li>
+      <div class="options">
+        <button id="indexId-{{ loop.index }}" data-id="{{ word.id }}"
+                class="btn btn-success known" type="button" href="#" onclick="handle_result('known', this.id, $(this).attr('data-id'))">认识</button>
+        <button id="unknown-{{ loop.index }}" data-id="{{ word.id }}"
+                class="btn btn-danger unknown" type="button" href="#" onclick="handle_result('unknown', this.id, $(this).attr('data-id'))">不认识</button>
+      </div>
+
+      <div class="detail hidden">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#translation">翻译</a></li>
+          <li><a data-toggle="tab" href="#note">笔记</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="translation" class="tab-pane fade in active">
+            <h4><span class="label label-primary">{{ word.category }}</span></h4>
+            <h3>{{ word.translation }}</h3>
+            <a id="buttonId-{{ loop.index }}" class="btn btn-default hidden next" type="button" href="#" onclick="next(this.id)">下一个</a>
+          </div>
+          <div id="note" class="tab-pane fade">
+            <div class="form-group">
+              <form method="POST" action="submit_note">
+                <label for="comment">笔记:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+                <input type="submit" class="btn btn-default" value="Submit">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </ul>
   {% endfor %}
   </div>

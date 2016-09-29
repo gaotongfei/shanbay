@@ -57,3 +57,9 @@
   </div>
 </div>
 {% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

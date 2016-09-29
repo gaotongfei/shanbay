@@ -1,7 +1,8 @@
-from flask import render_template, flash, Markup, redirect, url_for
+from flask import render_template, flash, Markup, redirect, url_for, current_app
 from . import bp
 from flask_login import current_user, login_required
 from ..models import User
+from itsdangerous import JSONWebSignatureSerializer
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -21,11 +22,16 @@ def index():
 @login_required
 def review():
     if current_user.is_authenticated:
-        user = User.query.filter_by(username=current_user.username).first()
+        username = current_user.username
+
+        # generate token for authenticating user
+        s = JSONWebSignatureSerializer('token', salt=current_app.config['SECRET_KEY'])
+        token = s.dumps({'username': username})
+        token = token.decode()
+
+        user = User.query.filter_by(username=username).first()
         words_per_day = user.words_per_day
-        words = user.words.limit(words_per_day).offset(words_per_day).all()
-        print([word.id for word in words])
-        print(len(words))
+        words = user.words.limit(words_per_day).all()
     else:
         return redirect(url_for('account.login'))
-    return render_template('main/review.html', words=words)
+    return render_template('main/review.html', words=words, token=token)
