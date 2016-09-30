@@ -5,7 +5,6 @@ basedir = os.path.abspath(os.path.dirname(__name__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'CgZuaRrkC44hWEkdY'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'sqlite.db')
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
@@ -16,7 +15,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///' + os.path.join(basedir, 'sqlite.db')
 
 
 class TestConfig(Config):
