@@ -14,3 +14,8 @@ $ python manager.py import_dict
 
 $ python manager.py runserver
 ```
+
+## issues track:
+
+* 笔记可为空
+* 查看记的笔记
