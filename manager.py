@@ -57,7 +57,7 @@ def import_dict():
             translation = w[1]
             category = f.split('.')[0]
 
-            # 先查看word表中是否存在, 不可以重复导入词库
+            # check if the word exists in :word: table before insert
             existed_word = Word.query.filter_by(word=word).first()
             if existed_word:
                 print("word  {0}:{1}  is already in database. skipping...".
