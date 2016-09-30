@@ -8,7 +8,6 @@ from .. import db
 
 @bp.route('/', methods=['GET', 'POST'])
 def index():
-    print(current_app.config['SQLALCHEMY_DATABASE_URI'])
     if current_user.is_authenticated:
         name = current_user.username
         if request.method == 'GET':
@@ -65,6 +64,4 @@ def submit_note():
         for t in (word, user, note):
             db.session.add(t)
         db.session.commit()
-    else:
-        pass
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.review'))

@@ -98,15 +98,17 @@ function loadNotes(data_id, clicked_id){
             var note = data['notes_info'];
             var noteEle = $('#note-'+currentIdNum);
             if (note.length == 0) {
-                alert('none notes');
+                noteEle.html('<div class="alert alert-info" role="alert">暂无笔记, 来添加一条吧</div>');
             } else {
                 console.log(data);
                 var _html = "";
                 for (var i=0; i<note.length; i++) {
-                    _html += '<div class="panel panel-default"><div class="panel-body"><div class="note-username">' +
-                         note[i]['username'] + '</div>' +
-                        '<div class="note-content">' + note[i]['content'] + '</div>' +
-                        '<div class="note-created-time">' + note[i]['created_time'] + '</div></div></div>'
+                    _html +=
+                        '<div class="panel panel-default"><div class="panel-body">' +
+                        '<div class="note-username"><label>by: </label> ' + note[i]['username'] + '</div>' +
+                        '<div class="note-content"><h4>' + note[i]['content'] + '</h4></div>' +
+                        '<div class="note-created-time">' + note[i]['created_time'] + '</div>' +
+                        '</div></div>'
                 }
                 noteEle.append(_html);
             }
@@ -114,9 +116,19 @@ function loadNotes(data_id, clicked_id){
     });
 }
 
+function validateNoteTextarea() {
+    $('#note-form').submit(function() {
+        var noteText = $.trim($('#note-textarea').val());
+        if (noteText === '') {
+            alert('can not be null');
+            return false;
+        }
+    })
+}
+
 $(document).ready(function(){
     // init: show first word
     showFirstWord();
+    validateNoteTextarea();
 });
-
 
