@@ -1,5 +1,8 @@
 # shanbay作业
 
+[![Build Status](https://travis-ci.org/gaotongfei/shanbay.svg?branch=master)](https://travis-ci.org/gaotongfei/shanbay)
+[![Code Health](https://landscape.io/github/gaotongfei/shanbay/dev/landscape.svg?style=flat)](https://landscape.io/github/gaotongfei/shanbay/dev)
+
 ## 开发环境:
 
 * Mac OSX 10.11.6
