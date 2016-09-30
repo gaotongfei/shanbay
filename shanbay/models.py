@@ -11,6 +11,14 @@ user_word_known = db.Table('user_word_known', db.Model.metadata,
                            db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
                            db.Column('word_id', db.Integer, db.ForeignKey('word.id')))
 
+word_note = db.Table('word_note', db.Model.metadata,
+                     db.Column('word_id', db.Integer, db.ForeignKey('word.id')),
+                     db.Column('note_id', db.Integer, db.ForeignKey('note.id')))
+
+user_note = db.Table('user_note', db.Model.metadata,
+                     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+                     db.Column('note_id', db.Integer, db.ForeignKey('note.id')))
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
@@ -23,6 +31,8 @@ class User(UserMixin, db.Model):
     words = db.relationship('Word', secondary=user_word,
                             backref=db.backref('users', lazy='dynamic'), lazy='dynamic')
     words_known = db.relationship('Word', secondary=user_word_known, lazy='dynamic')
+    notes = db.relationship('Note', secondary=user_note,
+                            backref=db.backref('users', lazy='dynamic'), lazy='dynamic')
     words_per_day = db.Column(db.Integer)
     category = db.Column(db.String(20))
 
@@ -51,11 +61,20 @@ class Word(db.Model):
     word = db.Column(db.String(100), nullable=False)
     translation = db.Column(db.String(500))
     category = db.Column(db.String(20))
+    notes = db.relationship('Note', secondary=word_note,
+                            backred=db.backref('words', lazy='dynamic'), lazy='dynamic')
 
     def __init__(self, word, translation=None, category=None):
         self.word = word
         self.translation = translation
         self.category = category
+
+
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(200), nullable=False)
+    user_id = db.Column(db.ForeignKey('user.id'))
+    word_id = db.Column(db.ForeignKey('word.id'))
 
 
 @login_manager.user_loader
