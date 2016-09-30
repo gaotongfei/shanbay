@@ -1,3 +1,4 @@
+# coding=utf-8
 from flask import render_template, flash, Markup, redirect, url_for, current_app, request
 from . import bp
 from flask_login import current_user, login_required

@@ -1,3 +1,4 @@
+# coding=utf-8
 import unittest
 from flask import current_app
 from shanbay import create_app, db

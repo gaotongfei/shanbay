@@ -1,3 +1,4 @@
+# coding=utf-8
 import os
 from flask_script import Manager, Server, Shell
 from flask_migrate import Migrate, MigrateCommand

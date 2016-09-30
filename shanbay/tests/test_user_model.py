@@ -1,3 +1,4 @@
+# coding=utf-8
 import unittest
 from shanbay import create_app, db
 from shanbay.models import User

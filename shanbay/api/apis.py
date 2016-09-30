@@ -1,3 +1,4 @@
+# coding=utf-8
 from flask import request, current_app, abort, jsonify
 from . import bp
 from ..models import User, Word, Note

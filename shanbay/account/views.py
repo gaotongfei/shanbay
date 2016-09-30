@@ -1,3 +1,4 @@
+# coding=utf-8
 from flask import render_template, request, redirect, url_for, flash
 from .forms import SignupForm, LoginForm, SettingsForm
 from . import bp
