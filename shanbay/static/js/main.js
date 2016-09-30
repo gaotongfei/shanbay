@@ -1,3 +1,6 @@
+/*
+maybe re-implement function :hideUnrelated: to function :showRelated: and add class :hidden: for eacg
+ */
 $(document).ready(function(){
     hideUnrelated();
 });
@@ -13,10 +16,8 @@ function hideUnrelated() {
 }
 
 function getIdNum(clicked_id) {
-    //var id = $('.word:not("hidden")').attr('id');
     var currentIdNum = parseInt(clicked_id.split('-').pop());
     var nextIdNum = currentIdNum + 1;
-    var dataId = parseInt();
     return [currentIdNum, nextIdNum];
 }
 
@@ -24,6 +25,11 @@ function handle_result(result, clicked_id, data_id) {
     var idNum = getIdNum(clicked_id);
     var currentIdNum = idNum[0];
     var nextIdNum = idNum[1];
+    console.log('current: ' + currentIdNum);
+    console.log('next: ' + nextIdNum);
+
+    // when currentIdNum is the max number it could get, do something
+
 
     // show translation
     var notHiddenEle = $('.word:not(".hidden") > div.detail');
@@ -50,7 +56,7 @@ function handle_result(result, clicked_id, data_id) {
 
 }
 
-function next(clicked_id) {
+function next(clicked_id, words_per_day) {
     var idNum = getIdNum(clicked_id);
     var currentIdNum = idNum[0];
     var nextIdNum = idNum[1];
@@ -60,6 +66,11 @@ function next(clicked_id) {
 
     currentEle.addClass('hidden');
     nextEle.removeClass('hidden');
+
+    if (currentIdNum === words_per_day) {
+        // redirect to home page with post data if current word is the last
+        $.redirect('/', {'words_per_day': words_per_day, 'message': 'finished'});
+    }
 }
 
 function handleKnownWords(data_id) {
@@ -79,3 +90,5 @@ function handleKnownWords(data_id) {
         data: data
     })
 }
+
+

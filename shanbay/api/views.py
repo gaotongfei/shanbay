@@ -31,4 +31,4 @@ def index():
     else:
         abort(404)
 
-    return 'test'
+    return 'success'

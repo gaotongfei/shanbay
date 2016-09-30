@@ -52,9 +52,17 @@
     {% endif %}
   {% endwith %}
 
-  <div class="page-header">
-    <h1>{% if name %}Hi {% endif %}{% block name %}{{ name }}{% endblock %}</h1>
-  </div>
+  {% if words_per_day%}
+    <div class="page-header">
+      <h3>{% if name %}Hi {% endif %}{{ name }}</h3>
+    </div>
+  {% else %}
+    <h3>{% if name %}Hi {% endif %}{{ name }}</h3>
+  {% endif %}
+  {% if words_per_day %}
+    <h2>今日20个单词任务完成, 客官要再来一斤吗? <a href="/review">再来一斤</a></h2>
+  {% endif %}
+
 </div>
 {% endblock %}
 
@@ -62,4 +70,5 @@
   {{ super() }}
   <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.redirect.js') }}"></script>
 {% endblock %}

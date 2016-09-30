@@ -8,8 +8,9 @@
   {% for word in words %}
     <ul id="indexId-{{ loop.index }}" class="word" data-id="{{ word.id }}">
       <div class="word-text">
-        <h1>{{ word.word }}</h1>
+        <h1>{{ word.word }}</h1> <h3><span class="label label-info">{{ loop.index }}/{{ words_per_day }}</span></h3>
       </div>
+
       <div class="options">
         <button id="indexId-{{ loop.index }}" data-id="{{ word.id }}"
                 class="btn btn-success known" type="button" href="#" onclick="handle_result('known', this.id, $(this).attr('data-id'))">认识</button>
@@ -26,7 +27,7 @@
           <div id="translation" class="tab-pane fade in active">
             <h4><span class="label label-primary">{{ word.category }}</span></h4>
             <h3>{{ word.translation }}</h3>
-            <a id="buttonId-{{ loop.index }}" class="btn btn-default hidden next" type="button" href="#" onclick="next(this.id)">下一个</a>
+            <a id="buttonId-{{ loop.index }}" class="btn btn-default hidden next" type="button" href="#" onclick="next(this.id, {{ words_per_day }})">下一个</a>
           </div>
           <div id="note" class="tab-pane fade">
             <div class="form-group">
@@ -41,6 +42,7 @@
       </div>
     </ul>
   {% endfor %}
+  </div>
   </div>
   <div class="col-md-2"></div>
   </div>
