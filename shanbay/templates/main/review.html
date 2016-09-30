@@ -26,7 +26,7 @@
         <div class="tab-content">
           <div id="translation" class="tab-pane fade in active">
             <h4><span class="label label-primary">{{ word.category }}</span></h4>
-            <h3>{{ word.translation }}</h3>
+            <h4>{{ word.translation }}</h4>
             <a id="buttonId-{{ loop.index }}" class="btn btn-default hidden next" type="button" href="#" onclick="next(this.id, {{ words_per_day }})">下一个</a>
           </div>
           <div id="note" class="tab-pane fade">
@@ -34,7 +34,7 @@
               <form method="POST" action="submit_note">
                 <label for="comment">笔记:</label>
                 <textarea class="form-control" rows="5" id="comment"></textarea>
-                <input type="submit" class="btn btn-default" value="Submit">
+                <input id="submit-note-btn" type="submit" class="btn btn-default" value="Submit">
               </form>
             </div>
           </div>
