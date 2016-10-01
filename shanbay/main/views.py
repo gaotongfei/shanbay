@@ -16,6 +16,7 @@ def index():
             is_new_user = user.new_user
             if is_new_user:
                 flash(Markup('你是新新新新, 新来的吧, 来<a href="/settings">设置</a>每日计划吧'))
+
             return render_template('main/index.html', name=name)
         else:
             data = request.form
