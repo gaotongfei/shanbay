@@ -13,16 +13,6 @@ user_word_known = db.Table('user_word_known', db.Model.metadata,
                            db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
                            db.Column('word_id', db.Integer, db.ForeignKey('word.id')))
 
-'''
-word_note = db.Table('word_note', db.Model.metadata,
-                     db.Column('word_id', db.Integer, db.ForeignKey('word.id')),
-                     db.Column('note_id', db.Integer, db.ForeignKey('note.id')))
-
-user_note = db.Table('user_note', db.Model.metadata,
-                     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-                     db.Column('note_id', db.Integer, db.ForeignKey('note.id')))
-'''
-
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
@@ -31,7 +21,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(128))
     new_user = db.Column(db.Integer, default=1)
-    # backref 可加可不加
     words = db.relationship('Word', secondary=user_word,
                             backref='users', lazy='dynamic')
     words_known = db.relationship('Word', secondary=user_word_known, lazy='dynamic')
@@ -88,13 +77,11 @@ class Note(db.Model):
     def __init__(self, content):
         self.content = content
 
+    def __repr__(self):
+        return "<Note %r>" % self.content
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-"""
-Note:    Note.users
-User:    User.notes  backref='users'
-Word:    Word.notes
-"""

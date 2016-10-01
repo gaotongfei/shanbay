@@ -1,7 +1,7 @@
 # coding=utf-8
 import unittest
 from shanbay import create_app, db
-from shanbay.models import User
+from shanbay.models import User, load_user
 
 
 class UserModelTestCase(unittest.TestCase):
@@ -15,6 +15,10 @@ class UserModelTestCase(unittest.TestCase):
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
+
+    def test_user_repr(self):
+        user = User(username='username', password='password', email='email@test.com')
+        self.assertEqual(repr(user), "<User 'username'>")
 
     def test_password_setter(self):
         user = User(password='password')
@@ -34,3 +38,9 @@ class UserModelTestCase(unittest.TestCase):
         user = User(password='password')
         self.assertTrue(user.verify_password('password'))
 
+    def test_load_user(self):
+        user = User(username='username', password='password', email='email@test.com')
+        db.session.add(user)
+        db.session.commit()
+        loaded_user = load_user(user.id)
+        self.assertEqual(repr(loaded_user), "<User 'username'>")
