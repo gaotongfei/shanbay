@@ -22,10 +22,16 @@ class ClientTestCase(unittest.TestCase):
 
     def test_signup_login(self, username='username', password='password', email='email@test.com'):
         response = self.client.get(url_for('account.signup'))
-        self.assertTrue(bytes('注册', encoding='utf8') in response.data)
+        try:
+            self.assertTrue(bytes('注册', encoding='utf8') in response.data)
+        except TypeError:
+            self.assertTrue('注册' in response.data)
 
         response = self.client.get(url_for('account.login'))
-        self.assertTrue(bytes('登录', encoding='utf8') in response.data)
+        try:
+            self.assertTrue(bytes('登录', encoding='utf8') in response.data)
+        except TypeError:
+            self.assertTrue('登录' in response.data)
 
         # post signup form data
         response = self.client.post(url_for('account.signup'), data={
@@ -41,8 +47,12 @@ class ClientTestCase(unittest.TestCase):
                 'username': username,
                 'password': password
             }, follow_redirects=True)
-            self.assertTrue(bytes('你是新新新新, 新来的吧, 来<a href="/settings">设置</a>每日计划吧',
-                                  encoding='utf8') in response.data)
+            try:
+                self.assertTrue(bytes('你是新新新新, 新来的吧, 来<a href="/settings">设置</a>每日计划吧', encoding='utf8')
+                                in response.data)
+            except TypeError:
+                self.assertTrue('你是新新新新, 新来的吧, 来<a href="/settings">设置</a>每日计划吧' in response.data)
+
             self.assertEqual(current_user.username, 'username')
 
             # index page test when user authentication needed
@@ -73,8 +83,12 @@ class ClientTestCase(unittest.TestCase):
             response = self.client.post(url_for('main.index'), data={
                 'words_per_day': words_per_day
             })
-            self.assertTrue(bytes('<h2>今日' + str(words_per_day) + '个单词任务完成, 客官要再来一斤吗? '
-                                  '<a href="/review">再来一斤</a></h2>', encoding='utf8') in response.data)
+            try:
+                self.assertTrue(bytes('<h2>今日' + str(words_per_day) + '个单词任务完成, 客官要再来一斤吗? '
+                                      '<a href="/review">再来一斤</a></h2>', encoding='utf8') in response.data)
+            except TypeError:
+                self.assertTrue('<h2>今日' + str(words_per_day) + '个单词任务完成, 客官要再来一斤吗? '
+                                '<a href="/review">再来一斤</a></h2>' in response.data)
 
     def test_review_page(self, is_login=False):
         response = self.client.get(url_for('main.review'))
@@ -82,7 +96,10 @@ class ClientTestCase(unittest.TestCase):
             # when user is not logged in, it will redirect it to main view
             self.assertEqual(response.status_code, 302)
         else:
-            self.assertTrue(bytes('认识', encoding='utf8') in response.data)
+            try:
+                self.assertTrue(bytes('认识', encoding='utf8') in response.data)
+            except TypeError:
+                self.assertTrue('认识' in response.data)
 
     def test_settings_page(self, is_login=False, words_per_day=5, method='GET'):
         # import dict data
