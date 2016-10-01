@@ -8,6 +8,7 @@
 
 * Mac OSX 10.11.6
 * Python3.4.4
+* travis 构建python 版本: 2.7, 3.3, 3.4, 3.5
 
 ```
 $ virtualenv -p python3 venv
