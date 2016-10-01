@@ -37,10 +37,10 @@ def load_notes():
     load notes of current word
     """
     if request.method == 'POST':
-        s = JSONWebSignatureSerializer('token', salt=current_app.config['SECRET_KEY'])
         data = request.form
         word_id = data['word_id']
         notes = Note.query.filter_by(word_id=word_id).all()
+        print(notes)
         notes_info = [{'username': note.users.username, 'content': note.content,
                        'created_time': note.created_time} for note in notes]
         return jsonify(word_id=word_id, notes_info=notes_info)

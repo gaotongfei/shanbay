@@ -4,7 +4,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__name__))
 
 
-class Config:
+class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'CgZuaRrkC44hWEkdY'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True

@@ -39,9 +39,9 @@ def review():
         user = User.query.filter_by(username=username).first()
         words_per_day = user.words_per_day
         words = user.words.limit(words_per_day).all()
+        return render_template('main/review.html', words=words, token=token, words_per_day=words_per_day)
     else:
         return redirect(url_for('account.login'))
-    return render_template('main/review.html', words=words, token=token, words_per_day=words_per_day)
 
 
 @bp.route('/submit_note', methods=['POST', 'GET'])
