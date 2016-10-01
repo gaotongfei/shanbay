@@ -1,14 +1,15 @@
 # shanbay作业
 
 [![Build Status](https://travis-ci.org/gaotongfei/shanbay.svg?branch=master)](https://travis-ci.org/gaotongfei/shanbay)
-[![Code Health](https://landscape.io/github/gaotongfei/shanbay/dev/landscape.svg?style=flat)](https://landscape.io/github/gaotongfei/shanbay/dev)
+[![Code Health](https://landscape.io/github/gaotongfei/shanbay/master/landscape.svg?style=flat)](https://landscape.io/github/gaotongfei/shanbay/master)
 [![Coverage Status](https://coveralls.io/repos/github/gaotongfei/shanbay/badge.svg?branch=master)](https://coveralls.io/github/gaotongfei/shanbay?branch=master)
 
 ## 开发环境:
 
 * Mac OSX 10.11.6
 * Python3.4.4
-* travis 构建python 版本: 2.7, 3.3, 3.4, 3.5
+* travis 构建python 版本: 3.3, 3.4, 3.5
+* 不支持Python2
 
 ```
 $ virtualenv -p python3 venv
