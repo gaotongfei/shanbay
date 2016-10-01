@@ -23,16 +23,10 @@ class ClientTestCase(unittest.TestCase):
 
     def test_signup_login(self, username='username', password='password', email='email@test.com'):
         response = self.client.get(url_for('account.signup'))
-        if is_py3:
-            self.assertTrue(bytes('注册').encode('utf8') in response.data)
-        else:
-            self.assertTrue(bytes('注册') in response.data)
+        self.assertTrue(bytes('注册', 'utf8') in response.data)
 
         response = self.client.get(url_for('account.login'))
-        if is_py3:
-            self.assertTrue(bytes('登录').encode('utf8') in response.data)
-        else:
-            self.assertTrue(bytes('登录') in response.data)
+        self.assertTrue(bytes('登录', 'utf8') in response.data)
 
         # post signup form data
         response = self.client.post(url_for('account.signup'), data={
@@ -48,12 +42,8 @@ class ClientTestCase(unittest.TestCase):
                 'username': username,
                 'password': password
             }, follow_redirects=True)
-            if is_py3:
-                self.assertTrue(bytes('你是新新新新, 新来的吧, 来<a href="/settings">设置</a>每日计划吧').encode('utf8')
-                                in response.data)
-            else:
-                self.assertTrue(bytes('你是新新新新, 新来的吧, 来<a href="/settings">设置</a>每日计划吧')
-                                in response.data)
+            self.assertTrue(bytes('你是新新新新, 新来的吧, 来<a href="/settings">设置</a>每日计划吧', 'utf8')
+                            in response.data)
 
             self.assertEqual(current_user.username, 'username')
 
@@ -85,12 +75,8 @@ class ClientTestCase(unittest.TestCase):
             response = self.client.post(url_for('main.index'), data={
                 'words_per_day': words_per_day
             })
-            if is_py3:
-                self.assertTrue(bytes('<h2>今日' + str(words_per_day) + '个单词任务完成, 客官要再来一斤吗? '
-                                      '<a href="/review">再来一斤</a></h2>').encode('utf8') in response.data)
-            else:
-                self.assertTrue(bytes('<h2>今日' + str(words_per_day) + '个单词任务完成, 客官要再来一斤吗? '
-                                      '<a href="/review">再来一斤</a></h2>') in response.data)
+            self.assertTrue(bytes('<h2>今日' + str(words_per_day) + '个单词任务完成, 客官要再来一斤吗? '
+                                  '<a href="/review">再来一斤</a></h2>', 'utf8') in response.data)
 
     def test_review_page(self, is_login=False):
         response = self.client.get(url_for('main.review'))
@@ -98,10 +84,7 @@ class ClientTestCase(unittest.TestCase):
             # when user is not logged in, it will redirect it to main view
             self.assertEqual(response.status_code, 302)
         else:
-            if is_py3:
-                self.assertTrue(bytes('认识').encode('utf8') in response.data)
-            else:
-                self.assertTrue(bytes('认识') in response.data)
+            self.assertTrue(bytes('认识', 'utf8') in response.data)
 
     def test_settings_page(self, is_login=False, words_per_day=5, method='GET'):
         # import dict data
