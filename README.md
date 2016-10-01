@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/gaotongfei/shanbay.svg?branch=master)](https://travis-ci.org/gaotongfei/shanbay)
 [![Code Health](https://landscape.io/github/gaotongfei/shanbay/dev/landscape.svg?style=flat)](https://landscape.io/github/gaotongfei/shanbay/dev)
+[![Coverage Status](https://coveralls.io/repos/github/gaotongfei/shanbay/badge.svg?branch=master)](https://coveralls.io/github/gaotongfei/shanbay?branch=master)
 
 ## 开发环境:
 
