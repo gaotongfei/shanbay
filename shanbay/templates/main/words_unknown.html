@@ -8,9 +8,12 @@
 				<div>
 					{{ word.word }}
 					{{ word.translation }}
-					{{ word.notes.all() }}
 				</div>
 			{% endfor %}
+			{% if words_unknown.items %}
+				{% if words_unknown.has_prev %}<a href="{{ url_for('main.words_unknown', page=words_unknown.prev_num) }}">&lt;&lt; 上一页</a>{% else %}&lt;&lt; 下一页{% endif %} | 
+				{% if words_unknown.has_next %}<a href="{{ url_for('main.words_unknown', page=words_unknown.next_num) }}">上一页 &gt;&gt;</a>{% else %}下一页 &gt;&gt;{% endif %}
+			{% endif %}
 		</div>
 		<div class="col-md-2"></div>
 	</div>

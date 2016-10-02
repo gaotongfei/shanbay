@@ -6,10 +6,18 @@
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
 			{% for word in words_known.items %}
+				<div>
 				{{ word.word }}
 				{{ word.translation }}
-				{{ word.notes.all() }}
+				</div>
 			{% endfor %}
+			{% if not words_known.items %}
+				<div>还没有掌握的单词, 还不快去学习? 点<a href="{{ url_for('main.review') }}">这里</a></div>
+			{% endif %}
+			{% if words_known.items %}
+				{% if words_known.has_prev %}<a href="{{ url_for('main.words_known', page=words_known.prev_num) }}">&lt;&lt; 上一页</a>{% else %}&lt;&lt; 下一页{% endif %} | 
+				{% if words_known.has_next %}<a href="{{ url_for('main.words_known', page=words_known.next_num) }}">上一页 &gt;&gt;</a>{% else %}下一页 &gt;&gt;{% endif %}
+			{% endif %}
 		</div>
 		<div class="col-md-2"></div>
 	</div>
