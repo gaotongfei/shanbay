@@ -67,3 +67,24 @@ def submit_note():
             db.session.add(t)
         db.session.commit()
     return redirect(url_for('main.review'))
+
+
+@bp.route('/words_known')
+@bp.route('/words_known/<int:page>')
+def words_known(page=1):
+    user = User.query.filter_by(username=current_user.username).first()
+    words_known = user.words_known.paginate(page, 10, False)
+    return render_template('main/words_known.html',
+                            user=user,
+                            words_known=words_known)
+
+
+@bp.route('/words_unknown')
+@bp.route('/words_unknown/<int:page>')
+def words_unknown(page=1):
+    user = User.query.filter_by(username=current_user.username).first()
+    words_unknown = user.words.paginate(page, 10, False)
+
+    return render_template('main/words_unknown.html', 
+                           user=user,
+                           words_unknown=words_unknown)

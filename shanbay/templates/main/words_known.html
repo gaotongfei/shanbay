@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block subtitle %}已掌握单词{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			{% for word in words_known.items %}
+				{{ word.word }}
+				{{ word.translation }}
+				{{ word.notes.all() }}
+			{% endfor %}
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+{% endblock %}
